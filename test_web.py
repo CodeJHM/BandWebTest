@@ -788,7 +788,7 @@ class TestBand():
         driver.find_element(By.CLASS_NAME, 'uButton.-confirm._btnConfirm').click()
         time.sleep(2)
 
-        current_url = driver.get()
+        current_url = driver.current_url
         check.equal(current_url, 'https://qa1.band.us/')
 
     # ------------------------------------------- 개별밴드 -------------------------------------------
