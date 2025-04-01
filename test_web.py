@@ -17,8 +17,6 @@ from selenium.webdriver.support.select import Select
 import datetime
 
 checkurl = 'qa1.band.us'
-moveurl = ''
-test = ''
 
 # 시작 함수
 @pytest.fixture(scope="session")
@@ -404,6 +402,7 @@ class TestBand():
         driver.find_element(By.CLASS_NAME, 'uButton.-confirm._btnConfirm').click()
         time.sleep(2)
 
+        global moveurl
         moveurl = driver.current_url
 
         if zerocase > 0:
@@ -600,6 +599,7 @@ class TestBand():
         except NoSuchElementException:
             print('인기글 미노출')
     # 찾기탭 소모임 추천글 테스트
+    '''
     #UI 변경으로 추후 변경 진행
     def test_013_searchlocal(self):
         scrollelement('localMeetupBand')
@@ -629,8 +629,9 @@ class TestBand():
         check.equal(onecategory, twocategory)
 
         closenewtab()
+    '''
     # 찾기탭 추천 페이지 테스트
-    def test_014_searchpage(self):
+    def test_013_searchpage(self):
         # 추천 페이지 영역으로 스크롤
         scrollelement('invitePage')
 
@@ -734,7 +735,7 @@ class TestBand():
         time.sleep(2)
 
     # 찾기탭 미션 인증글 테스트
-    def test_015_searchmission(self):
+    def test_014_searchmission(self):
         scrollelement('missionBand')
 
         driver.find_elements(By.CLASS_NAME, 'missionInfo')[2].click()
@@ -775,7 +776,8 @@ class TestBand():
 
         driver.back()
 
-    def test_missionbanddel(self):
+    # 미션 밴드 삭제 테스트
+    def test_015_missionbanddel(self):
         driver.get(moveurl)
         time.sleep(2)
 
@@ -798,6 +800,7 @@ class TestBand():
         time.sleep(2)
 
         #22.0 이전 만들기
+        '''
         driver.find_element(By.CLASS_NAME, 'bandCreate._link').click()
         time.sleep(2)
 
@@ -809,7 +812,8 @@ class TestBand():
         driver.find_element(By.ID, 'secret').click()
         driver.find_element(By.CLASS_NAME, '_btnConfirm.uButton.-sizeXL.-confirm').click()
         time.sleep(2)
-     
+        '''
+
         #22.0 이후 만들기
         driver.find_element(By.CLASS_NAME, 'typeItem._privateBtn').click()
         time.sleep(2)
@@ -1702,9 +1706,13 @@ class TestBand():
         change_count = len(driver.find_elements(By.CLASS_NAME, 'scheduleItem._schedule'))
         check.equal(cal_count-1, change_count)
 
+
     # ------------------ 소모임 ----------------------
     # 소모임 탭 지역 변경 테스트
     def test_070_localchange(self):
+        driver.get('https://'+checkurl+'/local-meetup')
+        time.sleep(2)
+
         driver.find_element(By.CLASS_NAME, '_tabMyLocalMeetup.tab').click()
         time.sleep(2)
 
@@ -1740,6 +1748,9 @@ class TestBand():
 
     # 지역 검색 추가/삭제 테스트
     def test_071_localhistory(self):
+        driver.refresh()
+        time.sleep(2)
+
         driver.find_element(By.CLASS_NAME, 'openKeyword._regionSelectBtn').click()
         time.sleep(2)
 
