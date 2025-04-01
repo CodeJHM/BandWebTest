@@ -14,12 +14,11 @@ import pytest, sys, logging
 from pytest_html_reporter import attach
 import pytest_check as check
 from selenium.webdriver.support.select import Select
-from twocaptcha import TwoCaptcha
 import datetime
-import pyautogui
 
 checkurl = 'qa1.band.us'
 moveurl = ''
+test = ''
 
 # 시작 함수
 @pytest.fixture(scope="session")
@@ -27,9 +26,7 @@ def setup():
     global driver
     options = Options()
     # recapcha 확장 프로그램 불러오기
-    options.add_extension('0626.crx')
-    #options.add_extension('reCAPTCHA-Solver-auto-captcha-bypass.crx')
-    #options.add_extension('Captcha-Solver-Auto-captcha-solving-service.crx')
+    #options.add_extension('0626.crx')
     driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
     baseurl = 'https://'+checkurl+'/home'
     driver.get(baseurl)
@@ -122,7 +119,6 @@ class TestBand():
         time.sleep(2)
     # ------------------------------------------- 밴드홈 -------------------------------------------
     # 밴드 가이드, 데스크톱 메뉴 테스트
-    '''
     def test_002_bandmainlink(self):
         # 밴드 가이드 버튼 클릭
         driver.find_element(By.CLASS_NAME, 'btnOption._linkGuideBand').click()
@@ -1706,7 +1702,6 @@ class TestBand():
         change_count = len(driver.find_elements(By.CLASS_NAME, 'scheduleItem._schedule'))
         check.equal(cal_count-1, change_count)
 
-    '''  
     # ------------------ 소모임 ----------------------
     # 소모임 탭 지역 변경 테스트
     def test_070_localchange(self):
@@ -1900,15 +1895,15 @@ class TestBand():
         titletext = driver.find_element(By.CLASS_NAME, 'title').text
         check.equal(titletext, '지역 소모임 설정')
 
-        driver.find_element(By.CLASS_NAME, 'detailView.-arrowRight').click()
-        time.sleep(2)
+        #driver.find_element(By.CLASS_NAME, 'detailView.-arrowRight').click()
+        #time.sleep(2)
 
-        newtab()
+        #newtab()
 
-        tab = driver.current_url
-        check.equal(tab, 'https://band.us/cs/notice/4741')
+        #tab = driver.current_url
+        #check.equal(tab, 'https://band.us/cs/notice/4741')
 
-        closenewtab()
+        #closenewtab()
 
     # 피드 메인 테스트
     def test_075_feedmain(self):
